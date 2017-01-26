@@ -31,10 +31,21 @@
   Your dogs name:<br>
   <input type="text" name="Your dogs name" prompt(Your dogs name) ""><br><br>
   <button type= "button" id= "submit" onclick= "setName()">submit</button>
+ <script>
+ if (localStorage.getItem('name')=== null) {
+localStorage.setItem('name', 'set name here');
+ }
 
 
-</form></h3>
+ document.getElementById("name").innerHTML = localStorage.getItem('name');
 
+
+function setName(){
+   localStorage.setItem('name', document.getElementById("add_name").value  );
+    document.getElementById("name").innerHTML = localStorage.getItem('name');
+
+}
+</script>
     </div>
 </center>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
