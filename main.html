@@ -21,30 +21,33 @@
 	<div class="container">
     <h1>Doggo!!</h1>
     <h2>Do you give your dog the love and care that he/she deserves?</h2>
-
-
-    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQptqLznJmVe9i1EPx77ZzxPaLunY89Oh_nVg2f3s7JMKBVr0T1" alt="Center Align image in bootstrap" height="250" width="300" class="img-rounded center-block">
+<img src="https://www.cesarsway.com/sites/newcesarsway/files/styles/large_article_preview/public/Common-dog-behaviors-explained.jpg?itok=FSzwbBoi" alt="Center Align image in bootstrap" height= "250" width= "300"class="img-circle">
+    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQptqLznJmVe9i1EPx77ZzxPaLunY89Oh_nVg2f3s7JMKBVr0T1" align= "left" height="250" width="300" class="img-circle">
+<img src="https://www.sciencenewsforstudents.org/sites/default/files/2016/06/main/articles/860-header-dog-breeds.jpg" align= "right" height= "250" width= "300" class="img-circle">
    <h3><form>
+<form>
+  <div class="form-group">
+    <label for="inputdogsname">Your Dogs Name</label>
+    <input type="email" class="form-control" id="inputdogsname" placeholder="Your Dogs Name">
+  </div>
+  <div class="form-group">
+    <label for="InputEmail">Email</label>
+    <input type="email" class="form-control" id="InputEmail" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <label for="InputUploadYourDogsPhoto">Your Dogs Photo</label>
+    <input type="file" id="InputUploadYourDogsPhoto">
+  </div>
+
+
+    </label>
   
-  Email:<br>
-  <input type="text" name="Email" value=""><br>
-  Your dogs name:<br>
-  <input type="text" name="Your dogs name" prompt(Your dogs name) ""><br><br>
-  <button type= "button" id= "submit" onclick= "setName()">submit</button>
- <script>
- if (localStorage.getItem('name')=== null) {
-localStorage.setItem('name', 'set name here');
- }
+ <button type="submit" id="saveData"  class="btn btn-success">Save Dog Reminder</button>
+                </div>
+</form>
 
 
- document.getElementById("name").innerHTML = localStorage.getItem('name');
 
-
-function setName(){
-   localStorage.setItem('name', document.getElementById("add_name").value  );
-    document.getElementById("name").innerHTML = localStorage.getItem('name');
-
-}
 </script>
     </div>
 </center>
@@ -56,12 +59,31 @@ function setName(){
 	<script src="http://sabioapi2.azurewebsites.net/scripts/sabio.js"></script>
 	<!-- All your code goes below here-->
 	<script type="text/javascript">
-
-
-    
-
-
-
+    sabio.page.startUp = function() {
+        sabio.page.getData();
+        $("#saveData").on("click", sabio.page.saveData);
+    }
+    sabio.page.setData = function(dog){
+        var data = "The name of my dog is " + dog.nameOfDog + " and I need to be reminded of " + dog.reminder;
+       $("#dataSentence").html(data)
+       $("#formDataAlert").removeClass("hidden");
+    }
+    sabio.page.getData = function() {
+         var dog = JSON.parse(localStorage.getItem('dog'));
+         if(dog != null){
+       sabio.page.setData(dog);
+   }
+    }
+    sabio.page.saveData = function() {
+        var nameOfDog = $("#nameOfDog").val();
+        var reminder = $("#reminderText").val();
+        var obj = {
+                nameOfDog: nameOfDog,
+                reminder: reminder
+        }
+        localStorage.setItem('dog', JSON.stringify(obj));
+        sabio.page.getData();
+    }
     </script>
 
 </body>
